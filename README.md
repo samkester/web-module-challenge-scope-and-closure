@@ -42,6 +42,8 @@ Find the file `index.js` and complete the tasks.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+Closure allows a function to "remember" certain variables from the function where it was defined. That is, given a Function A that defines Function B, parameter C, and local variable D, closure allows B to refer to C and D even after A finishes executing. If A is run multiple times, the values of C and D associated with each copy of B are unique to that copy.
+
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -63,8 +65,15 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+Closure is used to associate a `name` with each instance of the anonymous function.
+The most obvious sign is that `name` is used in the returned function, but not defined there; its definition is part of `personalDice`.
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
-c. What is the lexical scope of `newRoll`? 
+`name` will not change, because it is not assigned to. (It could be assigned inside `dansRoll`, which wouldn't make sense for a name, but would for e.g. a counter of times the dice have been rolled.)
+The `Math.random()` result, and therefore `newRoll`, will change each time.
+
+c. What is the lexical scope of `newRoll`?
+`newRoll` is in the anonymous function's scope. Because of closure, it could also access items from `personalDice`'s scope if needed.
 
 ### Task 2c - Exit Ticket
 
