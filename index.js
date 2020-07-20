@@ -52,15 +52,17 @@ function counter2() {
 }
 
 
+// 1. Counter1 contains an internal `count` variable that can't be accessed by outside code. Counter2's `count` is exposed for other code to act on.
+// 2. Counter1 uses closure, specifically the `count` variable that is declared in `counterMaker` but accessed in `counter`.
+// 3. Counter2 is preferable if we need other code to be able to affect the count; Counter1 is preferable if we specifically want to avoid that.
+// Counter1 is also preferable where we need a large number of counters running in parallel, each with their own count.
+
+
 /* Task 2: inning() 
 
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
-}
+const inning = () => Math.floor(Math.random() * 3);
 
 /* Task 3: finalScore()
 
@@ -76,11 +78,17 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+function finalScore(inning, numInnings){
+  const result = {home: 0, away: 0};
+  for(let i = 0; i < numInnings; i++)
+  {
+    result.home += inning();
+    result.away += inning();
+  }
+  return result;
 }
+
+console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -102,9 +110,19 @@ and returns the score at each pont in the game, like so:
 9th inning: awayTeam - homeTeam
 Final Score: awayTeam - homeTeam */
 
+const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"];
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+const getInningScore = (inning, score) => {console.log(`${ordinals[inning]} inning: ${score.away} - ${score.home}`)};
+
+function scoreboard(getInningScore, inning, numInnings) {
+  const result = {home: 0, away: 0};
+  for(let i = 0; i < numInnings; i++)
+  {
+    result.home += inning();
+    result.away += inning();
+    getInningScore(i, result);
+  }
+  return `Final score: ${result.away} - ${result.home}`;
 }
 
-
+console.log(scoreboard(getInningScore, inning, 9));
