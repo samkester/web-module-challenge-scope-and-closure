@@ -52,12 +52,18 @@ function counter2() {
 }
 
 
+// 1. Counter1 contains an internal `count` variable that can't be accessed by outside code. Counter2's `count` is exposed for other code to act on.
+// 2. Counter1 uses closure, specifically the `count` variable that is declared in `counterMaker` but accessed in `counter`.
+// 3. Counter2 is preferable if we need other code to be able to affect the count; Counter1 is preferable if we specifically want to avoid that.
+// Counter1 is also preferable where we need a large number of counters running in parallel, each with their own count.
+
+
 /* Task 2: inning() 
 
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
 function inning(/*Code Here*/){
-
+  
     /*Code Here*/
 
 }
