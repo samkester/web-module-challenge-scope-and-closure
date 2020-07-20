@@ -110,9 +110,19 @@ and returns the score at each pont in the game, like so:
 9th inning: awayTeam - homeTeam
 Final Score: awayTeam - homeTeam */
 
+const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"];
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+const getInningScore = (inning, score) => {console.log(`${ordinals[inning]} inning: ${score.away} - ${score.home}`)};
+
+function scoreboard(getInningScore, inning, numInnings) {
+  const result = {home: 0, away: 0};
+  for(let i = 0; i < numInnings; i++)
+  {
+    result.home += inning();
+    result.away += inning();
+    getInningScore(i, result);
+  }
+  return `Final score: ${result.away} - ${result.home}`;
 }
 
-
+console.log(scoreboard(getInningScore, inning, 9));
